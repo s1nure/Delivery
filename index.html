@@ -5,17 +5,143 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delivery Food - доставка еды на дом</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/normalize.css">
 </head>
 <body>
     <div class="conteiner">
         <header class="header">
             <img src="img/logo.svg" alt="logo" class="logo">
-            <input type="text" class="input search-input" placeholder="Адрес доставки">
+            <input type="text" class="input input-address" placeholder="Адрес доставки">
             <div class="buttons ">
                 <button class="button button-primary"><img src="img/icon_button1.svg" alt="user"><span>Войти</span></button>
                 <button class="button"><img src="img/icon_button2.svg" alt="">Корзина</button>
             </div>
         </header>
+
+        <section class="shower">
+            <h1 class="swover-title">
+                Онлайн-сервис <br>
+                доставки еды на дом
+            </h1> 
+            <p class="shower-text">
+                Блюда из любимого ресторана привезет курьер в перчатках, маске и с антисептиком
+            </p>
+        </section>
+
+        <section class="restaurants">
+            <div class="section-heading">
+                <h2 class="section-title">
+                    Рестораны
+                </h2>
+                <input type="text" class="input input-search" placeholder="Поиск блюд и ресторанов">
+            </div>
+        <!-- 
+            пица
+            суши
+            ролы
+            шаурма
+            бургеры
+            круасаны
+
+
+         -->
+            <div class="cards">
+                <div class="card">
+                    <img src="img/carbonara.jpg" alt="carbonara" class="card-img">
+                    <div class="card-text">
+                        <div class="card-heading">
+                            <h3>Карбонара</h3>
+                            <span class="card-tag">1 час</span>
+                        </div>
+                        <div class="card-info">
+                            <div class="raiting"><img src="img/star.svg" alt="star" class="star">4.1</div>
+                            <div class="price">от 120₴</div>
+                            <div class="category">Пицца</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <img src="img/sushi.jpg.avif" alt="shushi" class="card-img">
+                    <div class="card-text">
+                        <div class="card-heading">
+                            <h3>Суши</h3>
+                            <span class="card-tag">1 час 20 мин</span>
+                        </div>
+                        <div class="card-info">
+                            <div class="raiting"><img src="img/star.svg" alt="star" class="star">4.3</div>
+                            <div class="price">от 600₴</div>
+                            <div class="category">Суши</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <img src="img/haurma.png" alt="haurma" class="card-img">
+                    <div class="card-text">
+                        <div class="card-heading">
+                            <h3>Шаурма</h3>
+                            <span class="card-tag">30 мин</span>
+                        </div>
+                        <div class="card-info">
+                            <div class="raiting"><img src="img/star.svg" alt="star" class="star">5.0</div>
+                            <div class="price">от 100₴</div>
+                            <div class="category">Шаурма</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="img/rol.png" alt="rol" class="card-img">
+                    <div class="card-text">
+                        <div class="card-heading">
+                            <h3>Ролы</h3>
+                            <span class="card-tag">4 часа</span>
+                        </div>
+                        <div class="card-info">
+                            <div class="raiting"><img src="img/star.svg" alt="star" class="star">4.2</div>
+                            <div class="price">от 820₴</div>
+                            <div class="category">Ролы</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="img/burger.jpeg" alt="burger" class="card-img">
+                    <div class="card-text">
+                        <div class="card-heading">
+                            <h3>Бургеры</h3>
+                            <span class="card-tag">59 мин</span>
+                        </div>
+                        <div class="card-info">
+                            <div class="raiting"><img src="img/star.svg" alt="star" class="star">3.9</div>
+                            <div class="price">от 70₴</div>
+                            <div class="category">Бургеры</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="img/cruasan.png" alt="cruasan" class="card-img">
+                    <div class="card-text">
+                        <div class="card-heading">
+                            <h3>Круасаны</h3>
+                            <span class="card-tag">40 мин</span>
+                        </div>
+                        <div class="card-info">
+                            <div class="raiting"><img src="img/star.svg" alt="star" class="star">4.1</div>
+                            <div class="price">от 70₴</div>
+                            <div class="category">Круасаны</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </body>
 </html>
