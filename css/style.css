@@ -244,10 +244,7 @@ body{
     justify-content: space-between;
     align-items: center;
 }
-.logo {
-}
-.footer-logo {
-}
+
 .footer-nav {
     margin-left: 35px;
     margin-right: auto;
@@ -417,16 +414,10 @@ body{
     align-items: center;
     flex-wrap: wrap;
 }
-.modal-title {
-}
 .label-auth {
     margin: 20px;
     width: 60%;
 
-}
-.modal-footer {
-}
-.footer-buttons {
 }
 .button-login {
     position: absolute;

@@ -25,7 +25,6 @@ const userName = document.querySelector(".user-name")
 
 function toggleAuth() {
     modalAuth.classList.toggle('active');
-    buttonAuth.style.display = 'none';
 }
 let login = localStorage.getItem('gloDelivery');
 
@@ -52,7 +51,7 @@ function notAuthorized() {
             return;
         }
         localStorage.setItem('gloDelivery',login);
-
+        buttonAuth.style.display = 'none';
         toggleAuth();
         logInform.removeEventListener("submit", logIn);
         buttonAuth.removeEventListener('click', toggleAuth);
