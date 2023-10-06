@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/animate.min.css">
 </head>
 <body>
     <div class="conteiner">
@@ -16,8 +17,13 @@
             <img src="img/logo.svg" alt="logo" class="logo">
             <input type="text" class="input input-address" placeholder="Адрес доставки">
             <div class="buttons ">
-                <button class="button button-primary"><img src="img/icon_button1.svg" alt="user"><span class="button-text">Войти</span></button>
-                <button class="button"><img src="img/icon_button2.svg" alt=""><span class="button-text">Корзина</span></button>
+                <span class="user-name"></span>
+                <button class="button button-primary button-auth"><img src="img/icon_button1.svg" alt="user"><span class="button-text">Войти</span></button>
+                <button class="button" id="shoping-button"><img src="img/icon_button2.svg" alt=""><span class="button-text">Корзина</span></button>
+                <button class="button button-primary button-out">
+                    <span class= "button-text">Вийти</span> 
+                    <span class= "button-out-svg"></span>
+                </button>
             </div>
         </header>
     </div>
@@ -159,6 +165,92 @@
 
         </div>
     </footer>
+    <div class="modal">
+        <div class="modal-dialog wow fadeInUp" data-wow-delay="0.2s">
+            <div class="modal-header">
+                 <h3 class="modal-title">
+                    Корзина
+                 </h3>
+                 <button class="button-close">&times;</button>
+            </div>
 
+            <div class="modal-body">
+                <div class="food-row">
+                    <span class="food-name">Шаурма: Гавайская</span>
+                    <strong class="food-price">150₴</strong>
+                    <div class="food-counter">
+                        <button class="button-counter">-</button>
+                        <span class="counter">1</span>
+                        <button class="button-counter">+</button>
+                    </div>
+                </div>
+                <div class="food-row">
+                    <span class="food-name">Шаурма: Гавайская</span>
+                    <strong class="food-price">150₴</strong>
+                    <div class="food-counter">
+                        <button class="button-counter">-</button>
+                        <span class="counter">1</span>
+                        <button class="button-counter">+</button>
+                    </div>
+                </div>
+                <div class="food-row">
+                    <span class="food-name">Шаурма: Гавайская</span>
+                    <strong class="food-price">150₴</strong>
+                    <div class="food-counter">
+                        <button class="button-counter">-</button>
+                        <span class="counter">1</span>
+                        <button class="button-counter">+</button>
+                    </div>
+                </div>
+                <div class="food-row">
+                    <span class="food-name">Шаурма: Гавайская</span>
+                    <strong class="food-price">150₴</strong>
+                    <div class="food-counter">
+                        <button class="button-counter">-</button>
+                        <span class="counter">1</span>
+                        <button class="button-counter">+</button>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <span class="footer-price">600₴</span>
+                <div class="footer-buttons">
+                    <button class="button button-primary">Оформить заказ</button>
+                    <button class="button">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-auth">
+        <div class="modal-dialog modal-dialog-auth">
+            <button class="close-auth">
+                &times;
+            </button>
+
+            <form id="logInform">
+                <fieldset class= "modal-body">
+                    <legend class= "modal-title">Авторизація</legend> 
+                    <label class= "label-auth">
+                        <span>Логін</span>
+                        <input id="login" type="text"> 
+                    </label>
+                    <label class= "label-auth">
+                        <span>Пароль</span>
+                        <input id= "password" type="password"> 
+                    </label> 
+                </fieldset>
+                <div class="modal-footer">
+                    <div class="footer-buttons">
+                        <button class="button button-primary button-login" type="submit">Увійти</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="js/wow.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
