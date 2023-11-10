@@ -21,13 +21,16 @@ const inputLogin = document.querySelector('#login')
 const inputPass = document.querySelector('#password')
 const buttonOut = document.querySelector('.button-out')
 const userName = document.querySelector('.user-name')
+const cards = document.querySelector('.cards')
+const hrefs = document.querySelectorAll('.href')
+// const blockMenu = document.querySelector('.card-text')
 
 function toggleAuth() {
 	modalAuth.classList.toggle('active')
 	inputLogin.style.borderColor = ''
 	inputPass.style.borderColor = ''
 
-    if (modalAuth.classList.contains('active')) {
+	if (modalAuth.classList.contains('active')) {
 		window.disableScroll()
 	} else {
 		window.enableScroll()
@@ -46,6 +49,18 @@ checkOut()
 
 function notAuthorized() {
 	console.log('Не авторизован')
+	cards.addEventListener('click', openGoods)
+	for (var i = 0; i < hrefs.length; i++) {
+		hrefs[i].removeAttribute('href')
+	}
+
+	function openGoods(event) {
+		const target = event.target
+		const restaurant = target.closest('.card')
+		if (restaurant) {
+			toggleAuth()
+		}
+	}
 
 	function logIn(event) {
 		event.preventDefault()
@@ -55,13 +70,16 @@ function notAuthorized() {
 			if (!inputLogin.value.trim()) {
 				inputLogin.style.borderColor = '#ff0000'
 				inputLogin.value = ''
-            }
-            
+			}
+
 			if (!inputPass.value.trim()) {
 				inputPass.style.borderColor = '#ff0000'
 				inputPass.value = ''
 			}
 			return
+		}
+		for (var i = 0; i < hrefs.length; i++) {
+			hrefs[i].href = 'restaurant.html'
 		}
 		localStorage.setItem('gloDelivery', login)
 		buttonAuth.style.display = 'none'
@@ -69,6 +87,8 @@ function notAuthorized() {
 		logInform.removeEventListener('submit', logIn)
 		buttonAuth.removeEventListener('click', toggleAuth)
 		buttonCloseAuth.removeEventListener('click', toggleAuth)
+		cards.removeEventListener('click', openGoods)
+
 		logInform.reset()
 		checkOut()
 	}
@@ -99,3 +119,26 @@ function authorized() {
 	userName.style.display = 'block'
 	buttonOut.addEventListener('click', logOut)
 }
+
+// function createCard() {
+// 	const card = `
+// 					<div class="card">
+//              <a ><img src="img/carbonara.jpg" alt="carbonara" class="card-img"></a>
+//              <div class="card-text">
+//                  <div class="card-heading">
+//                      <h3>Карбонара</h3>
+//                      <span class="card-tag">1 час</span>
+//                  </div>
+//                  <div class="card-info">
+//                      <div class="raiting"><img src="img/star.svg" alt="star" class="star">4.1</div>
+//                      <div class="price">от 120₴</div>
+//                      <div class="category">Пицца</div>
+//                  </div>
+//              </div>
+//          </div>
+// 		`
+// 	cards.insertAdjacentHTML('beforeend', card)
+// }
+// createCard()
+// createCard()
+// createCard()
