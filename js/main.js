@@ -1,3 +1,7 @@
+  
+import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs';
+
+
 const shopingButton = document.querySelector('#shoping-button')
 const modal = document.querySelector('.modal')
 const modalDialog = document.querySelector('.modal-dialog')
@@ -142,3 +146,15 @@ function authorized() {
 // createCard()
 // createCard()
 // createCard()
+
+const swiper = new Swiper('.swiper', {
+	// Optional parameters
+	loop: true,
+	// Navigation arrows
+	navigation: {
+		nextEl: '.swiper-button-next',
+		prevEl: '.swiper-button-prev',
+	},
+	autoplay: true,
+	grabCursor: true,
+})

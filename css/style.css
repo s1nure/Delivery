@@ -84,12 +84,26 @@ body{
     margin-left: 30px;
 }
 .shower{
-    filter: drop-shadow(0px 7px 12px rgba(158, 158, 163, 0.10));
     border-radius: 10px;
-    background:#FFF1B8 url(../img/shower_photo-2.png) no-repeat top -80px right -100px/ 700px 700px;
-    background: #FFF1B8 url(../img/shower_photo-2.png) no-repeat top -80px right -100px/ 700px 700px;
     padding: 68px 70px;
     margin-bottom: 56px;
+    min-height: 400px;
+}
+.shower-pizza{
+    filter: drop-shadow(0px 7px 12px rgba(158, 158, 163, 0.10));
+    background:#FFF1B8 url(../img/shower_photo-2.png) no-repeat top -80px right -100px/ 700px 700px;
+}
+.shower-kebab{
+    filter: drop-shadow(0px 7px 12px rgba(172, 183, 190, 0.369));
+    background:rgb(221, 231, 252) url(../img/shower/kebab.png) no-repeat top 0px right -100px/ 800px 500px;
+}
+.shower-vegetables{
+    filter: drop-shadow(0px 7px 12px rgba(172, 183, 190, 0.369));
+    background:rgb(251, 234, 122) url(../img/shower/vegetables.png) no-repeat top 0px right 0px/ 650px 400px;
+}
+.shower-sushi{
+    filter: drop-shadow(0px 7px 12px rgba(172, 183, 190, 0.369));
+    background: rgb(228, 217, 224) url(../img/shower/sushi.png) no-repeat top 0px right 0px/ 500px 370px;
 }
 .shower-title{
     color: #302C34;

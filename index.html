@@ -11,6 +11,10 @@
 			href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
 			rel="stylesheet"
 		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+		/>
 		<link rel="stylesheet" href="css/normalize.css" />
 		<link rel="stylesheet" href="css/animate.min.css" />
 	</head>
@@ -46,16 +50,49 @@
 
 		<main class="main">
 			<div class="conteiner">
-				<section class="shower">
-					<h1 class="swover-title">
-						Онлайн-сервис <br />
-						доставки еды на дом
-					</h1>
-					<p class="shower-text">
-						Блюда из любимого ресторана привезет курьер в перчатках, маске и с
-						антисептиком
-					</p>
-				</section>
+				<div class="swiper">
+					<section class="swiper-wrapper">
+						<section class="shower shower-pizza swiper-slide">
+							<h1 class="swover-title">
+								Онлайн-сервис <br />
+								доставки еды на дом
+							</h1>
+							<p class="shower-text">
+								Блюда из любимого ресторана привезет курьер в перчатках, маске и
+								с антисептиком
+							</p>
+						</section>
+						<section class="shower shower-kebab swiper-slide">
+							<h1 class="swover-title">
+								Шашлыки на майские <br />
+								со скидкой 35%
+							</h1>
+							<p class="shower-text">
+								Закажите шашлыки в любом ресторане до 10 мая и получите скидку
+								по промокоду OMAGAD
+							</p>
+						</section>
+						<section class="shower shower-vegetables swiper-slide">
+							<h1 class="shower-title">
+								Скидка 20% на всю еду <br />
+								по промокоду LOVE.JS
+							</h1>
+							<p class="shower-text">
+								Блюдо из ресторана привезут вместе с двумя подарочными книгами
+								по фронтенду
+							</p>
+						</section>
+						<section class="shower shower-sushi swiper-slide">
+							<h1 class="shower-title">
+								Сеты со скидкой до 30% <br />
+								в ресторанах
+							</h1>
+							<p class="shower-text">
+								Скидки на сеты до 30 мая по промокоду DADADA
+							</p>
+						</section>
+					</section>
+				</div>
 
 				<section class="restaurants">
 					<div class="section-heading">
@@ -293,7 +330,7 @@
 		</div>
 
 		<script src="js/wow.min.js"></script>
-		<script src="js/main.js"></script>
+		<script src="js/main.js" type="module"></script>
 		<script src="js/disableScroll.js"></script>
 	</body>
 </html>
