@@ -1,6 +1,4 @@
-  
-import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs';
-
+import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
 
 const shopingButton = document.querySelector('#shoping-button')
 const modal = document.querySelector('.modal')
@@ -27,7 +25,32 @@ const buttonOut = document.querySelector('.button-out')
 const userName = document.querySelector('.user-name')
 const cards = document.querySelector('.cards')
 const hrefs = document.querySelectorAll('.href')
+const buttonToBackList = document.querySelector('#button-back-to-all-list')
+const sectionHeading = document.querySelector('.section-heading')
+const swiper0 = document.querySelector('.swiper')
+const cardsGood = document.querySelector('.cards-goods')
+
 // const blockMenu = document.querySelector('.card-text')
+
+buttonToBackList.addEventListener('click', () => {
+	sectionHeading.classList.remove('hide')
+	cards.classList.remove('hide')
+
+	swiper0.classList.remove('hide')
+	swiper0.classList.add('swiper')
+	buttonToBackList.classList.add('hide')
+
+	cardsGood.innerHTML = ''
+})
+const getData = async function (url) {
+	const response = await fetch(url)
+
+	if (!response.ok) {
+		throw new Error(`Ошибка по адресу ${url},
+статус ошибка ${response.status}`)
+	}
+	return response.json()
+}
 
 function toggleAuth() {
 	modalAuth.classList.toggle('active')
@@ -51,19 +74,38 @@ function checkOut() {
 }
 checkOut()
 
+function openGoods(event) {
+	const target = event.target
+	const login = localStorage.getItem('gloDelivery')
+	console.log(login)
+
+	if (login) {
+		const restaurant = target.closest('.card')
+		console.log(restaurant)
+		if (restaurant) {
+			sectionHeading.classList.add('hide')
+			cards.classList.add('hide')
+
+			swiper0.classList.add('hide')
+			swiper0.classList.remove('swiper')
+			buttonToBackList.classList.remove('hide')
+			getData(`./db/${restaurant.dataset.products}`).then(data => {
+				console.log(data)
+				data.forEach(element => {
+					createCardGood(element)
+				})
+			})
+		}
+	} else {
+		toggleAuth()
+	}
+}
+
 function notAuthorized() {
 	console.log('Не авторизован')
 	cards.addEventListener('click', openGoods)
 	for (var i = 0; i < hrefs.length; i++) {
 		hrefs[i].removeAttribute('href')
-	}
-
-	function openGoods(event) {
-		const target = event.target
-		const restaurant = target.closest('.card')
-		if (restaurant) {
-			toggleAuth()
-		}
 	}
 
 	function logIn(event) {
@@ -91,7 +133,7 @@ function notAuthorized() {
 		logInform.removeEventListener('submit', logIn)
 		buttonAuth.removeEventListener('click', toggleAuth)
 		buttonCloseAuth.removeEventListener('click', toggleAuth)
-		cards.removeEventListener('click', openGoods)
+		// cards.removeEventListener('click', openGoods)
 
 		logInform.reset()
 		checkOut()
@@ -107,6 +149,7 @@ function notAuthorized() {
 }
 function authorized() {
 	console.log('Авторизован')
+	cards.addEventListener('click', openGoods)
 
 	function logOut() {
 		login = null
@@ -124,33 +167,68 @@ function authorized() {
 	buttonOut.addEventListener('click', logOut)
 }
 
-// function createCard() {
-// 	const card = `
-// 					<div class="card">
-//              <a ><img src="img/carbonara.jpg" alt="carbonara" class="card-img"></a>
-//              <div class="card-text">
-//                  <div class="card-heading">
-//                      <h3>Карбонара</h3>
-//                      <span class="card-tag">1 час</span>
-//                  </div>
-//                  <div class="card-info">
-//                      <div class="raiting"><img src="img/star.svg" alt="star" class="star">4.1</div>
-//                      <div class="price">от 120₴</div>
-//                      <div class="category">Пицца</div>
-//                  </div>
-//              </div>
-//          </div>
-// 		`
-// 	cards.insertAdjacentHTML('beforeend', card)
-// }
-// createCard()
-// createCard()
-// createCard()
+function createCardGood(element) {
+	const { image, name, price, description } = element
+
+	const card = `
+			<div class="card wow fadeInUp" data-wow-delay="0.2s">
+        <img src="${image}" alt="carbonara" class="card-img">
+        <div class="card-text">
+            <div class="card-heading">
+                <h3 class="card-title card-title-reg">${name}</h3>
+            </div>
+            <div class="card-info">
+                <div class="ingrediets">${description}</div>
+            </div>
+            <div class="card-buttons">
+                <button class="button button-primary button-card-shoping">
+                    <span class="button-card-text">В корзину</span>
+                    <img src="img/shopping-cart-white.svg" alt="shoping_card" class="button-card-image">
+                </button>
+                <strong class="card-price-bold">${price}₴</strong>
+            </div>
+        </div>
+    </div>
+		`
+	cardsGood.insertAdjacentHTML('beforeend', card)
+}
+
+function createCard(restaurant) {
+	const {
+		image,
+		kitchen,
+		name,
+		price,
+		stars,
+		products,
+		time_of_delivery: timeOfDelivery,
+	} = restaurant
+	const card = `
+					<div class="card" data-products="${products}">
+             <a ><img src="${image}" alt="carbonara" class="card-img"></a>
+             <div class="card-text">
+                 <div class="card-heading">
+                     <h3>${name}</h3>
+                     <span class="card-tag">${timeOfDelivery} минут</span>
+                 </div>
+                 <div class="card-info">
+                     <div class="raiting"><img src="img/star.svg" alt="star" class="star">${stars}</div>
+                     <div class="price">от ${price}</div>
+                     <div class="category">${kitchen}</div>
+                 </div>
+             </div>
+         </div>
+		`
+	cards.insertAdjacentHTML('beforeend', card)
+}
+getData('../db/partners.json').then(data => {
+	data.forEach(element => {
+		createCard(element)
+	})
+})
 
 const swiper = new Swiper('.swiper', {
-	// Optional parameters
 	loop: true,
-	// Navigation arrows
 	navigation: {
 		nextEl: '.swiper-button-next',
 		prevEl: '.swiper-button-prev',

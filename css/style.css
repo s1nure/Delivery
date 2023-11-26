@@ -153,6 +153,12 @@ body{
     align-items: flex-start;
     justify-content: space-between;
 }
+.cards-goods{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+}
 .card-img{
     width: 100%;
     height: 250px;
@@ -291,6 +297,7 @@ body{
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
     display: none;
+    z-index: 2;
 }
 .active{
     display: flex;
@@ -302,6 +309,7 @@ body{
     background: #ffffff;
     border-radius: 5px;
     padding: 40px 45px;
+    z-index: 2;
 }
 .modal-header{
     display: flex;
@@ -393,6 +401,7 @@ body{
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
+    z-index: 2;
 }
 .modal-dialog-auth {
     position: relative;
@@ -445,6 +454,12 @@ body{
 }
 .active{
     display: flex;
+}
+.hide{
+    display: none;
+}
+.button-to-back{
+    margin: 20px 20px 20px 0;
 }
 @media (max-width: 1366px) {
     .conteiner{
