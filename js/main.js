@@ -29,7 +29,7 @@ const buttonToBackList = document.querySelector('#button-back-to-all-list')
 const sectionHeading = document.querySelector('.section-heading')
 const swiper0 = document.querySelector('.swiper')
 const cardsGood = document.querySelector('.cards-goods')
-
+const headerRestaurant = document.querySelector('#header-restaurant')
 // const blockMenu = document.querySelector('.card-text')
 
 buttonToBackList.addEventListener('click', () => {
@@ -41,6 +41,7 @@ buttonToBackList.addEventListener('click', () => {
 	buttonToBackList.classList.add('hide')
 
 	cardsGood.innerHTML = ''
+	headerRestaurant.innerHTML = ''
 })
 const getData = async function (url) {
 	const response = await fetch(url)
@@ -89,8 +90,31 @@ function openGoods(event) {
 			swiper0.classList.add('hide')
 			swiper0.classList.remove('swiper')
 			buttonToBackList.classList.remove('hide')
-			getData(`./db/${restaurant.dataset.products}`).then(data => {
+			const url = restaurant.dataset.products
+			getData(`./db/${url}`).then(data => {
 				console.log(data)
+				if (!data) return
+
+				getData(`./db/partners.json`).then(res => {
+					res.forEach(partner => {
+						if (partner.id === data[0].p_id) {
+							const headRes = `
+							<div class="section-heading">
+                    <h2 class="section-title">
+                        ${partner.name}
+                    </h2>
+                    <div class="card-info">
+                        <div class="raiting"><img src="img/star.svg" alt="star" class="star">${partner.stars}</div>
+                        <div class="price">от ${partner.price}₴</div>
+                        <div class="category">${partner.kitchen}</div>
+                    </div>
+                </div>
+								`
+							headerRestaurant.insertAdjacentHTML('beforeend', headRes)
+						}
+					})
+				})
+
 				data.forEach(element => {
 					createCardGood(element)
 				})
@@ -194,6 +218,7 @@ function createCardGood(element) {
 }
 
 function createCard(restaurant) {
+	console.log(restaurant)
 	const {
 		image,
 		kitchen,
@@ -203,6 +228,7 @@ function createCard(restaurant) {
 		products,
 		time_of_delivery: timeOfDelivery,
 	} = restaurant
+
 	const card = `
 					<div class="card" data-products="${products}">
              <a ><img src="${image}" alt="carbonara" class="card-img"></a>
@@ -213,7 +239,7 @@ function createCard(restaurant) {
                  </div>
                  <div class="card-info">
                      <div class="raiting"><img src="img/star.svg" alt="star" class="star">${stars}</div>
-                     <div class="price">от ${price}</div>
+                     <div class="price">от ${price}₴</div>
                      <div class="category">${kitchen}</div>
                  </div>
              </div>
