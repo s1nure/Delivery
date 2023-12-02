@@ -30,7 +30,9 @@ const sectionHeading = document.querySelector('.section-heading')
 const swiper0 = document.querySelector('.swiper')
 const cardsGood = document.querySelector('.cards-goods')
 const headerRestaurant = document.querySelector('#header-restaurant')
+const titleMenu = document.querySelector('#Title-menu')
 // const blockMenu = document.querySelector('.card-text')
+const inputSearch = document.querySelector('.input-search')
 
 buttonToBackList.addEventListener('click', () => {
 	sectionHeading.classList.remove('hide')
@@ -47,12 +49,49 @@ const getData = async function (url) {
 	const response = await fetch(url)
 
 	if (!response.ok) {
-		throw new Error(`Ошибка по адресу ${url},
-статус ошибка ${response.status}`)
+		throw new Error(`Ошибка по адресу ${url}, статус ошибка ${response.status}`)
 	}
 	return response.json()
 }
 
+inputSearch.addEventListener('keypress', event => {
+	if (event.code == 'Enter') {
+		console.log('enter')
+		const value = event.target.value
+		if (!value) {
+			cards.classList.remove('hide')
+			titleMenu.textContent = 'Рестораны'
+			cardsGood.innerHTML = ''
+			return
+		}
+
+		cardsGood.innerHTML = ''
+		cards.classList.add('hide')
+		titleMenu.textContent = 'Результаты поиска'
+		getData('./db/partners.json')
+			.then(data => {
+				return data.map(products => {
+					return products
+				})
+			})
+			.then(linkProducts => {
+				console.log(linkProducts)
+
+				linkProducts.forEach(link => {
+					getData(`./db/${link.products}`).then(data => {
+						console.log(data)
+
+						const filteredData = data.filter(item =>
+							item.name.toUpperCase().includes(value.toUpperCase()) 
+						)
+						filteredData.forEach(element => {
+							createCardGood(element)
+						})
+					})
+				})
+			})
+	}
+})
 function toggleAuth() {
 	modalAuth.classList.toggle('active')
 	inputLogin.style.borderColor = ''
@@ -247,7 +286,7 @@ function createCard(restaurant) {
 		`
 	cards.insertAdjacentHTML('beforeend', card)
 }
-getData('../db/partners.json').then(data => {
+getData('./db/partners.json').then(data => {
 	data.forEach(element => {
 		createCard(element)
 	})
