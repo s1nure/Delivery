@@ -7,6 +7,14 @@ const closeButton = document.querySelector('.button-close')
 const modalBody = document.querySelector('.modal-body')
 const clearCart = document.querySelector('.button-clear-cart')
 shopingButton.addEventListener('click', function (event) {
+	console.log(localStorage.getItem('cart'))
+	const storedCartString = localStorage.getItem('cart')
+	if(!storedCartString) return
+	const storedCart = JSON.parse(storedCartString)
+	cart.length = 0
+	storedCart.forEach(item => {
+		cart.push(item)
+	})
 	renderCart()
 	window.disableScroll()
 
@@ -17,7 +25,6 @@ closeButton.addEventListener('click', function (event) {
 	modal.classList.remove('active')
 	window.enableScroll()
 })
-
 
 new WOW().init()
 modalBody.addEventListener('click', changeCount)
@@ -44,7 +51,9 @@ const headerRestaurant = document.querySelector('#header-restaurant')
 const titleMenu = document.querySelector('#Title-menu')
 // const blockMenu = document.querySelector('.card-text')
 const inputSearch = document.querySelector('.input-search')
+
 const cart = []
+
 const foodPrice = document.querySelector('.footer-price')
 
 buttonToBackList.addEventListener('click', () => {
@@ -152,8 +161,13 @@ function addToCard(event) {
 	}
 
 	console.log(cart)
+	const cartString = JSON.stringify(cart)
+	localStorage.setItem('cart', cartString)
+
 }
 function renderCart() {
+	const cartString = JSON.stringify(cart)
+	localStorage.setItem('cart', cartString)
 	modalBody.textContent = ''
 
 	cart.forEach(item => {
@@ -176,7 +190,6 @@ function renderCart() {
 	console.log(totalPrice)
 	foodPrice.textContent = totalPrice + '₴'
 }
-
 
 function changeCount(event) {
 	const target = event.target
