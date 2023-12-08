@@ -9,7 +9,7 @@ const clearCart = document.querySelector('.button-clear-cart')
 shopingButton.addEventListener('click', function (event) {
 	console.log(localStorage.getItem('cart'))
 	const storedCartString = localStorage.getItem('cart')
-	if(!storedCartString) return
+	if (!storedCartString) return
 	const storedCart = JSON.parse(storedCartString)
 	cart.length = 0
 	storedCart.forEach(item => {
@@ -163,7 +163,6 @@ function addToCard(event) {
 	console.log(cart)
 	const cartString = JSON.stringify(cart)
 	localStorage.setItem('cart', cartString)
-
 }
 function renderCart() {
 	const cartString = JSON.stringify(cart)
@@ -274,7 +273,7 @@ function notAuthorized() {
 	for (var i = 0; i < hrefs.length; i++) {
 		hrefs[i].removeAttribute('href')
 	}
-
+	localStorage.removeItem('cart')
 	function logIn(event) {
 		event.preventDefault()
 		login = inputLogin.value
