@@ -338,6 +338,7 @@ body{
     padding-bottom: 8px;
     padding-top: 8px;
     border-bottom: 1px solid #d9d9d9;
+    width: 100%;
 }
 .food-name{
     font-weight: normal;
@@ -361,7 +362,7 @@ body{
     margin-left: 10px;
     margin-right: 10px;
 }
-.button-counter{
+.button-counter, .button-counter-plus, .button-counter-minus{
     display: flex;
     justify-content: center;
     align-items: center;

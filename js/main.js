@@ -4,16 +4,27 @@ const shopingButton = document.querySelector('#shoping-button')
 const modal = document.querySelector('.modal')
 const modalDialog = document.querySelector('.modal-dialog')
 const closeButton = document.querySelector('.button-close')
+const modalBody = document.querySelector('.modal-body')
+const clearCart = document.querySelector('.button-clear-cart')
 shopingButton.addEventListener('click', function (event) {
+	renderCart()
+	window.disableScroll()
+
 	modal.classList.add('active')
 })
 
 closeButton.addEventListener('click', function (event) {
 	modal.classList.remove('active')
+	window.enableScroll()
 })
 
-new WOW().init()
 
+new WOW().init()
+modalBody.addEventListener('click', changeCount)
+clearCart.addEventListener('click', () => {
+	cart.length = 0
+	renderCart()
+})
 const buttonAuth = document.querySelector('.button-auth')
 const buttonCloseAuth = document.querySelector('.close-auth')
 const modalAuth = document.querySelector('.modal-auth')
@@ -33,6 +44,8 @@ const headerRestaurant = document.querySelector('#header-restaurant')
 const titleMenu = document.querySelector('#Title-menu')
 // const blockMenu = document.querySelector('.card-text')
 const inputSearch = document.querySelector('.input-search')
+const cart = []
+const foodPrice = document.querySelector('.footer-price')
 
 buttonToBackList.addEventListener('click', () => {
 	sectionHeading.classList.remove('hide')
@@ -82,7 +95,7 @@ inputSearch.addEventListener('keypress', event => {
 						console.log(data)
 
 						const filteredData = data.filter(item =>
-							item.name.toUpperCase().includes(value.toUpperCase()) 
+							item.name.toUpperCase().includes(value.toUpperCase())
 						)
 						filteredData.forEach(element => {
 							createCardGood(element)
@@ -113,7 +126,84 @@ function checkOut() {
 	}
 }
 checkOut()
+function addToCard(event) {
+	const target = event.target
+	const buttonAddToCard = target.closest('.button-card-shoping')
+	if (!buttonAddToCard) return
 
+	const card = target.closest('.card')
+	const title = card.querySelector('.card-title').textContent
+	const price = card.querySelector('.card-price-bold').textContent
+	const id = buttonAddToCard.id
+
+	const food = cart.find(item => {
+		return item.id === id
+	})
+
+	if (food) {
+		food.count += 1
+	} else {
+		cart.push({
+			id,
+			title,
+			price,
+			count: 1,
+		})
+	}
+
+	console.log(cart)
+}
+function renderCart() {
+	modalBody.textContent = ''
+
+	cart.forEach(item => {
+		const itemCart = `
+					<div class="food-row">
+						<span class="food-name">${item.title}</span>
+						<strong class="food-price">${item.price}</strong>
+						<div class="food-counter">
+							<button class="button-counter-minus" data-id="${item.id}">-</button>
+							<span class="counter">${item.count}</span>
+							<button class="button-counter-plus" data-id="${item.id}">+</button>
+						</div>
+					</div>
+		`
+		modalBody.insertAdjacentHTML('afterbegin', itemCart)
+	})
+	const totalPrice = cart.reduce((result, item) => {
+		return (result += parseFloat(item.price) * item.count)
+	}, 0)
+	console.log(totalPrice)
+	foodPrice.textContent = totalPrice + '₴'
+}
+
+
+function changeCount(event) {
+	const target = event.target
+	console.log(target, target.classList.contains('button-counter-plus'))
+	if (target.classList.contains('button-counter-plus')) {
+		console.log(target)
+
+		const food = cart.find(item => {
+			return item.id === target.dataset.id
+		})
+		if (food) food.count++
+
+		renderCart()
+	}
+	if (target.classList.contains('button-counter-minus')) {
+		console.log(target)
+
+		const food = cart.find(item => {
+			return item.id === target.dataset.id
+		})
+		if (food) food.count--
+		if (food.count === 0) {
+			cart.splice(cart.indexOf(food), 1)
+		}
+		renderCart()
+	}
+}
 function openGoods(event) {
 	const target = event.target
 	const login = localStorage.getItem('gloDelivery')
@@ -158,6 +248,7 @@ function openGoods(event) {
 					createCardGood(element)
 				})
 			})
+			cardsGood.addEventListener('click', addToCard)
 		}
 	} else {
 		toggleAuth()
@@ -187,9 +278,11 @@ function notAuthorized() {
 			}
 			return
 		}
-		for (var i = 0; i < hrefs.length; i++) {
-			hrefs[i].href = 'restaurant.html'
-		}
+		// for (var i = 0; i < hrefs.length; i++) {
+		// 	hrefs[i].href = 'restaurant.html'
+		// }
+		shopingButton.style.display = 'flex'
+
 		localStorage.setItem('gloDelivery', login)
 		buttonAuth.style.display = 'none'
 		toggleAuth()
@@ -201,6 +294,7 @@ function notAuthorized() {
 		logInform.reset()
 		checkOut()
 	}
+	shopingButton.style.display = 'none'
 	logInform.addEventListener('submit', logIn)
 	buttonAuth.addEventListener('click', toggleAuth)
 	buttonCloseAuth.addEventListener('click', toggleAuth)
@@ -231,8 +325,9 @@ function authorized() {
 }
 
 function createCardGood(element) {
-	const { image, name, price, description } = element
+	const { image, name, price, description, id } = element
 
+	// card.id = id
 	const card = `
 			<div class="card wow fadeInUp" data-wow-delay="0.2s">
         <img src="${image}" alt="carbonara" class="card-img">
@@ -244,7 +339,7 @@ function createCardGood(element) {
                 <div class="ingrediets">${description}</div>
             </div>
             <div class="card-buttons">
-                <button class="button button-primary button-card-shoping">
+                <button class="button button-primary button-card-shoping" id="${id}">
                     <span class="button-card-text">В корзину</span>
                     <img src="img/shopping-cart-white.svg" alt="shoping_card" class="button-card-image">
                 </button>
