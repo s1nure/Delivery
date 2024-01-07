@@ -1,4 +1,23 @@
 import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js'
+import {
+	getDatabase,
+	ref,
+	get,
+	push,
+} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js'
+
+const firebaseConfig = {
+	apiKey: 'AIzaSyDJ_CH4qF7d-fqAtbd9NukxqMrzzChDp-o',
+	authDomain: 'delivery-4b405.firebaseapp.com',
+	projectId: 'delivery-4b405',
+	storageBucket: 'delivery-4b405.appspot.com',
+	messagingSenderId: '59064033419',
+	appId: '1:59064033419:web:e9bcef9ca506f0dd91f48e',
+	measurementId: 'G-MN52VHVF05',
+}
+const app = initializeApp(firebaseConfig)
+const database = getDatabase(app)
 
 const shopingButton = document.querySelector('#shoping-button')
 const modal = document.querySelector('.modal')
@@ -6,6 +25,8 @@ const modalDialog = document.querySelector('.modal-dialog')
 const closeButton = document.querySelector('.button-close')
 const modalBody = document.querySelector('.modal-body')
 const clearCart = document.querySelector('.button-clear-cart')
+const PushOrderButton = document.querySelector('.pushOrderButton')
+
 shopingButton.addEventListener('click', function (event) {
 	console.log(localStorage.getItem('cart'))
 	const storedCartString = localStorage.getItem('cart')
@@ -19,6 +40,8 @@ shopingButton.addEventListener('click', function (event) {
 	window.disableScroll()
 
 	modal.classList.add('active')
+
+	
 })
 
 closeButton.addEventListener('click', function (event) {
@@ -188,8 +211,21 @@ function renderCart() {
 	}, 0)
 	console.log(totalPrice)
 	foodPrice.textContent = totalPrice + '₴'
+	cart['fullPrice'] = totalPrice + '₴'
+	
 }
-
+	PushOrderButton.addEventListener('click', () => {
+		console.log(cart)
+		console.log('1')
+		const DeliveryDataRef = ref(database, 'DeliveryOrder')
+		push(DeliveryDataRef, cart)
+			.then(() => {
+				console.log('Данные успешно сохранены в базе данных.')
+			})
+			.catch(error => {
+				console.error('Ошибка при сохранении данных в базе данных:', error)
+			})
+	})
 function changeCount(event) {
 	const target = event.target
 	console.log(target, target.classList.contains('button-counter-plus'))
